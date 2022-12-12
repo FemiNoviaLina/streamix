@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="space-x-2 items-center text-center p-5">
-                            <h1 class="text-3xl">{{ $sharingGroup->member }}/{{ $sharingGroup->quota }}</h1>
+                            <h1 class="text-3xl">{{ $sharingGroup->quota - $sharingGroup->member }}/{{ $sharingGroup->quota }}</h1>
                             <p class="text-sm">Kuota Tersisa</p>
                         </div>
                     </div>

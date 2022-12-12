@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\SharingGroup;
+
+use App\Models\StreamCredential;
 
 class SharingGroupController extends Controller
 {
@@ -20,12 +24,33 @@ class SharingGroupController extends Controller
             'quota' => 'required|integer|min:1|max:20',
             'price' => 'required|min:0|max:1000000',
             'packet' => 'required',
-            'duration' => 'required|integer|min:1|max:100'
+            'duration' => 'required|integer|min:1|max:100',
+            'credentials' => 'required'
         ]);
 
-        $validated['owner_id'] = Auth::id();
-        
-        $sharingGroup = SharingGroup::create($validated);
+        $sharingGroupData = [
+            'platform' => $validated['platform'],
+            'quota' => $validated['quota'],
+            'price' => $validated['price'],
+            'packet' => $validated['packet'],
+            'duration' => $validated['duration'],
+            'owner_id' => Auth::id()
+        ];
+
+        $credentialsData = $validated['credentials'];
+
+        DB::transaction(function () use($sharingGroupData, $credentialsData) {
+            $sharingGroup = SharingGroup::create($sharingGroupData);
+            
+            foreach($credentialsData as $credential) {
+                StreamCredential::create([
+                    'email' => $credential['email'],
+                    'password' => $credential['password'],
+                    'group_id' => $sharingGroup['id']
+                ]);
+            }
+        }, 5);
+
         return redirect()->route('dashboard');
         // return redirect()->route('group-sharing-details', ['id' => $sharingGroup->id]);
     }
@@ -38,7 +63,7 @@ class SharingGroupController extends Controller
         ->groupBy('sharing_groups.id')
         ->groupBy('users.name')
         ->where('sharing_groups.platform', '=', $platform)
-        ->havingRaw('count(group_members.user_id) <> 0')
+        ->havingRaw('count(group_members.user_id) < sharing_groups.quota')
         ->get();
         
         return view('dashboard', ['sharingGroups' => $sharingGroups]);
