@@ -1,4 +1,4 @@
-<body>
+<body class="sidebar">
     <div class="h-screen w-full flex">
         <div class="side-bar ml-1.5 w-1/4 border-r">
             <div class="grid gap-y-7 pl-7 mt-4 font-semibold text-base">
