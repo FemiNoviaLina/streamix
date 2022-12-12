@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="w-screen">
-            <div class="grid">
+            <div class="flex flex-col">
                 <x-navbar2/>
                 {{$slot}}
             </div>

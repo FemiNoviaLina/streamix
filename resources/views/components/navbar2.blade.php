@@ -1,4 +1,3 @@
-
     <div class="flex">
         <div class="flex-1 border-b-2 border-purple-400">
             <a class="text-center block border-r border-gray-100 py-2 px-4 hover:bg-gray-100" href="#">Netflix</a>

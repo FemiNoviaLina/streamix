@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\SharingGroup;
 
 class SharingGroupController extends Controller
 {
-    public function createGroupSharing() {
+    public function showCreateSharingGroupForm() {
+        return view('create-sharing-group-form');
+    }
+
+    public function createSharingGroup() {
         $validated = request()->validate([
             'platform' => 'required|in:Netflix,Disney+,Spotify,Joox',
             'quota' => 'required|integer|min:1|max:20',
@@ -16,14 +22,12 @@ class SharingGroupController extends Controller
             'packet' => 'required',
             'duration' => 'required|integer|min:1|max:100'
         ]);
-        
-        if ($validator->fails()) {
-            $error = $validator->messages()->get('*');
-            return view('create-group-sharing-form')->with('error', $error);
-        } 
+
+        $validated['owner_id'] = Auth::id();
         
         $sharingGroup = SharingGroup::create($validated);
-        return redirect()->route('group-sharing-details', ['id' => $sharingGroup->id]);
+        return redirect()->route('dashboard');
+        // return redirect()->route('group-sharing-details', ['id' => $sharingGroup->id]);
     }
 
     public function showDashboard() {
@@ -32,7 +36,7 @@ class SharingGroupController extends Controller
         return view('dashboard', ['sharingGroups' => $sharingGroups]);
     }
 
-    public function getGroupsharingDetails($id) {
+    public function getSharingGroupDetails($id) {
         $sharingGroup = SharingGroup::where('id', $id);
 
         if($sharingGroup) {
