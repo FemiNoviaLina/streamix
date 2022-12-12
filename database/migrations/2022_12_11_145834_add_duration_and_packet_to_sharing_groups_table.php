@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->double('balance');
-            $table->double('rating');
+        Schema::table('sharing_groups', function (Blueprint $table) {
+            $table->string('packet');
+            $table->unsignedInteger('duration');
         });
     }
 
@@ -26,9 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('balance');
-            $table->dropColumn('rating');
+        Schema::table('sharing_groups', function (Blueprint $table) {
+            $table->dropColumn('packet');
+            $table->dropColumn('duration');
         });
     }
 };

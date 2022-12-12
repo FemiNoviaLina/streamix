@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->double('balance');
-            $table->double('rating');
+            $table->double('balance')->default(0.0)->change();
+            $table->double('rating')->default(0.0)->change();
         });
     }
 
@@ -27,8 +27,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('balance');
-            $table->dropColumn('rating');
+            $table->double('balance')->default('0.0')->change();
+            $table->double('rating')->default('0.0')->change();
         });
     }
 };
