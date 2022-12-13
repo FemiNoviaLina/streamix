@@ -9,7 +9,7 @@
                         </svg>
                     </div>
                     <div class="py-1">
-                        <a href="/">Femi Bin Laa'eeb</a>
+                        <a href="/">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
                 <div class="flex gap-5">
@@ -19,7 +19,7 @@
                         </svg>
                     </div>
                     <div class="py-1">
-                        <a href="#">Rp 240.800</a>
+                        <a href="#">Rp {{ auth()->user()->balance }}</a>
                     </div>
                 </div>
                 <div class="border-b-2 mr-5">
@@ -39,7 +39,7 @@
                         </svg>
                     </div>
                     <div class="py-1">
-                        <a href="#">Grup Baru</a>
+                        <a href="{{ route('create-sharing-group') }}">Grup Baru</a>
                     </div>
                 </div>
                 <div class="flex gap-5">
@@ -69,7 +69,7 @@
                     </svg>
                     </div>
                     <div>
-                        <a href="#">Keluar</a>
+                        <a href="{{ route('logout') }}">Keluar</a>
                     </div>
                 </div>
             </div>

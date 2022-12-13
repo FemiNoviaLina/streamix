@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Models\GroupMember;
+
 use App\Models\SharingGroup;
 
 use App\Models\StreamCredential;
@@ -81,6 +83,40 @@ class SharingGroupController extends Controller
             return redirect()->route('dashboard')->with('error', 'Grup sharing tidak ditemukan');
         }
 
+        // echo $sharingGroup;
+
         return view('detail', ['sharingGroup' => $sharingGroup]);
+    }
+
+    public function showJoinConfirmation($id) {
+        $existedMembership = GroupMember::select('user_id', 'group_id')
+        ->where('user_id', '=', Auth::id())
+        ->where('group_id', '=', $id)
+        ->get();
+
+        if(count($existedMembership) > 1) {
+            return redirect()->route('detail-sharing-group',  ['id' => $id])->with('error', 'Anda telah bergabung ke grup sharing ini');
+        }
+
+        $membership = GroupMember::create([
+            'user_id' => Auth::id(),
+            'group_id' => $id
+        ]);
+
+        if(isset($membership) != 1) {
+            return redirect()->route('detail-sharing-group', ['id' => $id])->with('error', 'Terjadi kesalahan saat bergabung');
+        }
+
+        $sharingGroup = SharingGroup::leftJoin('users', 'sharing_groups.owner_id', '=', 'users.id')
+        ->leftJoin('group_members', 'group_members.group_id', '=', 'sharing_groups.id')
+        ->select('sharing_groups.id', 'sharing_groups.price', 'sharing_groups.packet', 'sharing_groups.quota', 'sharing_groups.owner_id','users.name', 'group_members.user_id as member')
+        ->where('sharing_groups.id', '=', $id)
+        ->get();
+
+        if(count($sharingGroup) < 1) {
+            return redirect()->route('dashboard')->with('error', 'Grup sharing tidak ditemukan');
+        }
+
+        return view('bayar', ['sharingGroup' => $sharingGroup]);
     }
 }

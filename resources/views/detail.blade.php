@@ -27,13 +27,25 @@
                             <h1>Kuota</h1>
                         </div>
                         <div class="space-x-2 items-center text-center pt-2">
-                            <h1 class="text-3xl">{{ isset($sharingGroup[0]->member) ? count($sharingGroup[0]->member) : 0 }}/{{ $sharingGroup[0]->quota }}</h1>
+
+                            <h1 class="text-3xl">{{ isset($sharingGroup[0]->member) ? count($sharingGroup) : 0 }}/{{ $sharingGroup[0]->quota }}</h1>
                         </div>
                     </div>
                 </div>
-                <a class="w-36 text-center bg-gray-100 ml-5 mb-5 py-16" href="#s">
+                <?php
+                    $joined = false;
+                    foreach($sharingGroup as $sg) {
+                        if($sg->member == auth()->user()->id) {
+                            $joined = true;
+                            break;
+                        }
+                    }
+                ?>
+                @if($sharingGroup[0]->owner_id != auth()->user()->id and !$joined)
+                <a class="w-36 text-center bg-gray-100 ml-5 mb-5 py-16" href="{{ route('join-temporary', ['id' => ($sharingGroup[0]->id)]) }}">
                     <h1>Gabung</h1>
                 </a>
+                @endif
                 </div>
             </div>
         </div>
