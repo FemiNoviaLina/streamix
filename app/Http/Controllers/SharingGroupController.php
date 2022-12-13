@@ -69,13 +69,18 @@ class SharingGroupController extends Controller
         return view('dashboard', ['sharingGroups' => $sharingGroups]);
     }
 
-    public function getSharingGroupDetails($id) {
-        $sharingGroup = SharingGroup::where('id', $id);
+    public function showSharingGroupDetails($id) {
+        $platform = request()->query('platform', 'Netflix');
+        $sharingGroup = SharingGroup::leftJoin('users', 'sharing_groups.owner_id', '=', 'users.id')
+        ->leftJoin('group_members', 'group_members.group_id', '=', 'sharing_groups.id')
+        ->select('sharing_groups.id', 'sharing_groups.price', 'sharing_groups.packet', 'sharing_groups.quota', 'sharing_groups.owner_id','users.name', 'group_members.user_id as member')
+        ->where('sharing_groups.id', '=', $id)
+        ->get();
 
-        if($sharingGroup) {
+        if(count($sharingGroup) < 1) {
             return redirect()->route('dashboard')->with('error', 'Grup sharing tidak ditemukan');
         }
 
-        return view('group-sharing-details', ['sharingGroup' => $sharingGroup]);
+        return view('detail', ['sharingGroup' => $sharingGroup]);
     }
 }
