@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return View('success-join');
+});
 
 Route::get('/dashboard', [SharingGroupController::class, 'showDashboard'])->name('dashboard');
 Route::post('/sharing-group/new', [SharingGroupController::class, 'createSharingGroup']);
