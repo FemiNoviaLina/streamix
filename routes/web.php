@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [SharingGroupController::class, 'showDashboard'])->name('dashboard');
 Route::post('/sharing-group/new', [SharingGroupController::class, 'createSharingGroup']);
 Route::get('/sharing-group/new', [SharingGroupController::class, 'showCreateSharingGroupForm']);
+Route::get('/sharing-group/detail/{id}', [SharingGroupController::class, 'showSharingGroupDetails']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
