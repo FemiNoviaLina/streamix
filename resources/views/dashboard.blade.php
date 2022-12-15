@@ -8,7 +8,7 @@
         <div id="last-incomes" class="m-10">
             <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 @foreach($sharingGroups as $sharingGroup)
-                <a class="bg-pink-700 rounded-lg" href="#">
+                <a class="bg-pink-700 rounded-lg" href="{{ route('detail-sharing-group', ['id' => $sharingGroup->id]) }}">
                     <div class="p-5">
                         <p class="text-xl text-pink-700 font-bold bg-white rounded-lg text-center p-2">Rp {{ $sharingGroup->price }}/bulan</p>
                     </div>

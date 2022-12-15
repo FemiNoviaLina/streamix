@@ -7,10 +7,7 @@
                 </div>
                 <div class="ml-20">
                     <div>
-                        <h1>Order Id : 102030</h1>
-                    </div>
-                    <div>
-                        <h1>Customer : Femi Bin Laa'eeb</h1>
+                        <h1>Order Id : {{ $transaction->transaction_id }}</h1>
                     </div>
                 </div>
             </div>
@@ -19,22 +16,21 @@
                     <li class="mb-10 ml-4">
                         <div class="absolute w-8 h-8 bg-pink-700 rounded-full text-center font-bold text-white pt-1 -left-4 border border-pink-700 bg-pink-700">1</div>
                         <h3 class="text-xl font-semibold ml-4 mb-4">Bayar Sebelum :</h3>
-                        <p class="text-base font-normal ml-4">Hari ini, 17.37</p>
-                        <p class="text-base font-normal ml-4">Selesaikan pembayaran dalam: 2 jam 59 menit</p>
+                        <p class="text-base font-normal ml-4">{{ $transaction->payment_expiry_time }}</p>
                     </li>
                     <li class="mb-10 ml-4">
                     <div class="absolute w-8 h-8 bg-pink-700 rounded-full text-center font-bold text-white pt-1 -left-4 border border-pink-700 bg-pink-700">2</div>
                         <h3 class="text-xl font-semibold ml-4 mb-4">Tujuan Transfer</h3>
                         <div class="grid gap-5 ml-4">
                             <div class="text-lg">
-                                <h1>Bank BNI</h1>
+                                <h1>{{ $transaction->payment_method }}</h1>
                             </div>
                             <div class="flex gap-96">
                                 <div class="text-m">
-                                    <h1>No. Rekening</h1>
+                                    <h1>Nomor Virtual Account</h1>
                                 </div>
                                 <div class="text-m ml-20">
-                                    <h1>7998 9034 8543</h1>
+                                    <h1>{{ $transaction->virtual_account }}</h1>
                                 </div>
                             </div>
                             <div class="flex gap-96">
@@ -42,7 +38,7 @@
                                     <h1>Nama</h1>
                                 </div>
                                 <div class="text-m ml-32">
-                                    <h1>PT Streamix Sayang Ka Kosa</h1>
+                                    <h1>business.ly</h1>
                                 </div>
                             </div>
                             <div class="border-b-2">
@@ -53,7 +49,7 @@
                                     <h1>Total Pembayaran</h1>
                                 </div>
                                 <div class="text-lg ml-24">
-                                    <h1>Rp 33.000</h1>
+                                    <h1>Rp {{ $transaction->total_price }}</h1>
                                 </div>
                             </div>
                         </div>

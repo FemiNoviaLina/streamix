@@ -4,66 +4,31 @@
             <div class="text-2xl my-5">
                 <h1>Pilih Metode Pembayaran</h1>
             </div>
-            <div class="flex gap-20">
+            <form action="{{ route('payment', ['id' => $id ]) }}" method="post">
+                @csrf
+                <?php
+                    $methods = array(
+                        'BCA Transfer' => 'bca.png',
+                        'Mandiri Transfer' => 'mandiri.png',
+                        'BRI Transfer' => 'bri.png',
+                        'BNI Transfer' => 'bni.png',
+                        'Shopeepay Transfer' => 'shopee.png',
+                        'Gopay Transfer' => 'gopay.png',
+                    )
+                ?>
                 <div>
-                    <div class="text-xl">
-                        <h1>Bank Transfer</h1>
+                    @foreach($methods as $key => $value)
+                    <div class="flex items-center pl-4 rounded border border-gray-200 my-2">
+                        <input id="bordered-radio-1" type="radio" value="{{ $key }}" name="method" class="w-4 h-4 mr-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+                        <img src="{{ asset('images/'.$value) }}" alt="">
+                        <label for="bordered-radio-1" class="py-4 ml-2 w-full text-sm font-medium text-gray-900">{{ $key }}</label>
                     </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/bca.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">BCA Transfer</a>
-                        </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/mandiri.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">Mandiri Transfer</a>
-                        </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/bri.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">BRI Transfer</a>
-                        </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/bni.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">BNI Transfer</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div>
-                    <div class="text-xl">
-                        <h1>Bank Transfer</h1>
-                    </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/shopee.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">Shopeepay</a>
-                        </div>
-                    </div>
-                    <div class="flex gap-5">
-                        <div>
-                            <img src="images/gopay.png" alt="">
-                        </div>
-                        <div class="text-center text-lg my-2 pt-1">
-                            <a href="#">Gopay</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <button type="submit" class="px-3 py-2 outline outline-1 rounded hover:bg-slate-200 hover:duration-700">
+                        Pilih Metode Pembayaran
+                </button>
+            </form>
         </div>
     </x-base-body>
 </x-base-layout>

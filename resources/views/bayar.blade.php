@@ -13,7 +13,7 @@
                                     <h1>Paket</h1>
                                 </div>
                                 <div class="items-center text-center px-5 pt-5">
-                                    <h1>Paket Family Dasar</h1>
+                                    <h1>Paket {{ $sharingGroup->packet }}</h1>
                                 </div>                       
                             </div>
                             <div class="py-5">
@@ -21,7 +21,7 @@
                                     <h1>Berlaku</h1>
                                 </div>
                                 <div class="space-x-2 items-center text-center px-5 pt-5">
-                                    <h1>2 bulan</h1>
+                                    <h1>{{ $sharingGroup->duration }} bulan</h1>
                                 </div>
                             </div>
                             <div class="py-5">
@@ -29,13 +29,13 @@
                                     <h1>Harga</h1>
                                 </div>
                                 <div class="space-x-2 items-center text-center px-5 pt-5">
-                                    <h1>Rp 30.000</h1>
+                                    <h1>Rp {{ $sharingGroup->price }}</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="border rounded-lg bg-gray-200 text-center mx-5">
-                        <a href="">Bayar</a>
+                        <a href="{{ route('pick-payment', ['id' => $sharingGroup->id]) }}">Bayar</a>
                     </div>
                 </div>
             </div>
