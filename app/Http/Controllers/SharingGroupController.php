@@ -263,4 +263,13 @@ class SharingGroupController extends Controller
 
         return response('ok', 200);
     }
+
+    public function showMyGroup() {
+        $groupSharing = SharingGroup::where('owner_id', '=', Auth::id())->get();
+        $member = GroupMember::leftJoin('sharing_groups', 'sharing_groups.id', '=', 'group_members.group_id')
+        ->where('group_members.user_id', '=', Auth::id())
+        ->get();
+
+        return view('my-group', ['groupSharing' => $groupSharing, 'member' => $member]);
+    }
 }

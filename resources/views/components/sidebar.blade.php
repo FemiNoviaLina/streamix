@@ -57,7 +57,7 @@
                         </svg>
                     </div>
                     <div class="py-1">
-                        <a href="#">Grup Anda</a>
+                        <a href="{{ route('my-group') }}">Grup Anda</a>
                     </div>
                 </div>
                 <div class="border-b-2 mr-5">

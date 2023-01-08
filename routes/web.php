@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/sharing-group/new', [SharingGroupController::class, 'createSharingGroup']);
     Route::get('/sharing-group/new', [SharingGroupController::class, 'showCreateSharingGroupForm'])->name('create-sharing-group');
     Route::get('/sharing-group/detail/{id}', [SharingGroupController::class, 'showSharingGroupDetails'])->name('detail-sharing-group');
+    Route::get('/sharing-group/my', [SharingGroupController::class, 'showMyGroup'])->name('my-group');
     Route::get('/sharing-group/join/{id}', [SharingGroupController::class, 'showJoinConfirmation'])->name('join-temporary');
     Route::get('/sharing-group/payment/{id}', [SharingGroupController::class, 'showPaymentMethod'])->name('pick-payment');
     Route::post('/sharing-group/payment/{id}', [SharingGroupController::class, 'getPaymentCredentials'])->name('payment');
